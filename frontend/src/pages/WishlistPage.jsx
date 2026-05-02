@@ -75,7 +75,12 @@ export default function WishlistPage() {
                     <h3 className="font-display text-lg text-silver-100">{product.name}</h3>
                     <p className="font-body text-[10px] text-silver-700 italic mt-0.5">Inspired by {product.inspiration}</p>
                     <div className="flex items-center justify-between mt-3 pt-3 border-t border-silver-900/50">
-                      <p className="font-body text-sm text-gold-500">Rs {product.price_55ml?.toLocaleString()}</p>
+                      <div>
+                        <p className="font-body text-sm text-gold-500">Rs {product.price_55ml?.toLocaleString()}</p>
+                        {product.originalPrice_55ml && product.originalPrice_55ml > product.price_55ml && (
+                          <p className="font-body text-[9px] text-silver-700 line-through">Rs {product.originalPrice_55ml?.toLocaleString()}</p>
+                        )}
+                      </div>
                       <button
                         onClick={() => moveToCart(product)}
                         className="font-body text-[9px] tracking-[0.15em] uppercase text-silver-500 hover:text-gold-500 border border-silver-800 hover:border-gold-500 px-3 py-1.5 transition-colors duration-200"

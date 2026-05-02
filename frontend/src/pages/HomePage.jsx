@@ -154,7 +154,12 @@ export default function HomePage() {
                 style={{ filter: 'drop-shadow(0 20px 60px rgba(139,26,26,0.45))' }} />
               <div className="absolute -bottom-5 -left-10 bg-dark-700 border border-silver-800 px-5 py-3 shadow-luxury">
                 <p className="font-display text-lg text-silver-100">{featured[0]?.name}</p>
-                <p className="font-body text-xs text-gold-500 tracking-wider">From Rs {featured[0]?.price_3ml?.toLocaleString()}</p>
+                <div className="flex items-baseline gap-2">
+                  <p className="font-body text-xs text-gold-500 tracking-wider">Rs {featured[0]?.price_3ml?.toLocaleString()} / 3ml</p>
+                  {featured[0]?.originalPrice_55ml && (
+                    <p className="font-body text-[9px] text-silver-700 line-through">Rs {featured[0]?.originalPrice_55ml?.toLocaleString()}</p>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -251,6 +256,9 @@ export default function HomePage() {
                   </div>
                   <div className="text-right">
                     <p className="font-display text-xl text-gold-500">Rs {featured[0].price_55ml.toLocaleString()}</p>
+                    {featured[0].originalPrice_55ml && featured[0].originalPrice_55ml > featured[0].price_55ml && (
+                      <p className="font-body text-[10px] text-silver-700 line-through">Rs {featured[0].originalPrice_55ml.toLocaleString()}</p>
+                    )}
                     <p className="font-body text-[10px] text-silver-700 tracking-wider">55ml</p>
                   </div>
                 </div>
@@ -280,7 +288,12 @@ export default function HomePage() {
                   <span className={`category-badge-${product.category.toLowerCase()} text-[8px] tracking-[0.15em] mb-1.5 inline-block`}>{product.category}</span>
                   <h3 className="font-display text-lg text-silver-100 leading-tight">{product.name}</h3>
                   <div className="flex items-center justify-between mt-2">
-                    <p className="font-body text-sm text-gold-500">Rs {product.price_55ml.toLocaleString()}</p>
+                    <div>
+                      <p className="font-body text-sm text-gold-500">Rs {product.price_55ml.toLocaleString()}</p>
+                      {product.originalPrice_55ml && product.originalPrice_55ml > product.price_55ml && (
+                        <p className="font-body text-[9px] text-silver-700 line-through">Rs {product.originalPrice_55ml.toLocaleString()}</p>
+                      )}
+                    </div>
                     <button
                       onClick={(e) => { e.preventDefault(); handleAddToCart(product) }}
                       className="font-body text-[9px] tracking-[0.2em] uppercase text-silver-600 hover:text-gold-500 border border-silver-800 hover:border-gold-500 px-2 py-1 transition-colors duration-200">

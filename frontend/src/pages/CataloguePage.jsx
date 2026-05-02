@@ -252,7 +252,7 @@ function ProductCard({ product, idx, onAddToCart, onToggleWish, wishlisted }) {
           </button>
         </div>
 
-        {/* Wishlist icon */}
+        {/* Wishlist icon — top right */}
         <button
           onClick={(e) => { e.preventDefault(); onToggleWish() }}
           className={`absolute top-3 right-3 w-8 h-8 border flex items-center justify-center transition-all duration-200
@@ -266,11 +266,16 @@ function ProductCard({ product, idx, onAddToCart, onToggleWish, wishlisted }) {
           </svg>
         </button>
 
-        {/* Category badge */}
-        <div className="absolute top-3 left-3">
+        {/* Category + Sale badges — top left */}
+        <div className="absolute top-3 left-3 flex flex-col gap-1">
           <span className={`category-badge-${product.category.toLowerCase()} text-[8px]`}>
             {product.category}
           </span>
+          {product.originalPrice_55ml && product.originalPrice_55ml > product.price_55ml && (
+            <span className="font-accent text-[8px] tracking-[0.2em] uppercase px-2 py-0.5 bg-maroon-700 border border-maroon-600 text-silver-100">
+              Sale
+            </span>
+          )}
         </div>
       </Link>
 
@@ -287,9 +292,16 @@ function ProductCard({ product, idx, onAddToCart, onToggleWish, wishlisted }) {
 
         <div className="flex items-center justify-between mt-3 pt-3 border-t border-silver-900/50">
           <div>
-            <p className="font-body text-sm text-gold-500 font-medium">
-              Rs {product.price_55ml.toLocaleString()}
-            </p>
+            <div className="flex items-baseline gap-1.5">
+              <p className="font-body text-sm text-gold-500 font-medium">
+                Rs {product.price_55ml.toLocaleString()}
+              </p>
+              {product.originalPrice_55ml && product.originalPrice_55ml > product.price_55ml && (
+                <p className="font-body text-[10px] text-silver-700 line-through">
+                  Rs {product.originalPrice_55ml.toLocaleString()}
+                </p>
+              )}
+            </div>
             <p className="font-body text-[9px] text-silver-700 tracking-wider">
               3ml — Rs {product.price_3ml.toLocaleString()}
             </p>
@@ -339,7 +351,12 @@ function ProductRow({ product, onAddToCart, onToggleWish, wishlisted }) {
         {/* Pricing + actions */}
         <div className="flex items-center gap-5 shrink-0">
           <div className="text-right">
-            <p className="font-display text-lg text-gold-500">Rs {product.price_55ml.toLocaleString()}</p>
+            <div className="flex items-baseline gap-2 justify-end">
+              <p className="font-display text-lg text-gold-500">Rs {product.price_55ml.toLocaleString()}</p>
+              {product.originalPrice_55ml && product.originalPrice_55ml > product.price_55ml && (
+                <p className="font-body text-xs text-silver-700 line-through">Rs {product.originalPrice_55ml.toLocaleString()}</p>
+              )}
+            </div>
             <p className="font-body text-[10px] text-silver-700 tracking-wider">3ml — Rs {product.price_3ml.toLocaleString()}</p>
           </div>
           <div className="flex gap-2">
