@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts loaded in index.html ── */
+
+@layer base {
+  :root {
+    --color-maroon:      #8B1A1A;
+    --color-maroon-deep: #6B1414;
+    --color-maroon-dark: #4A0E0E;
+    --color-silver:      #C0C0C0;
+    --color-silver-light:#E8E8E8;
+    --color-gold:        #D4AF37;
+    --color-dark:        #0A0707;
+    --color-dark-card:   #1A1010;
+    --color-text:        #F0EAEA;
+    --color-text-muted:  #A89090;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-dark);
+    color: var(--color-text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #110C0C; }
+  ::-webkit-scrollbar-thumb { background: #8B1A1A; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+}
+
+@layer components {
+  /* ── Buttons ── */
+  .btn-primary {
+    @apply bg-maroon-700 hover:bg-maroon-600 text-silver-200
+           font-body font-medium tracking-widest uppercase text-xs
+           px-8 py-3 transition-all duration-300
+           border border-maroon-600 hover:border-gold-500
+           hover:shadow-maroon cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border border-silver-400 text-silver-300
+           hover:border-gold-500 hover:text-gold-500
+           font-body font-medium tracking-widest uppercase text-xs
+           px-8 py-3 transition-all duration-300 cursor-pointer;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-silver-400 hover:text-gold-500
+           font-body tracking-wider text-sm
+           transition-colors duration-200 cursor-pointer;
+  }
+
+  /* ── Cards ── */
+  .card-luxury {
+    @apply bg-dark-700 border border-silver-900
+           hover:border-maroon-700 transition-all duration-500
+           relative overflow-hidden;
+  }
+
+  /* ── Input fields ── */
+  .input-luxury {
+    @apply w-full bg-dark-700 border border-silver-800
+           text-silver-200 font-body font-light text-sm
+           px-4 py-3 outline-none
+           focus:border-maroon-700 focus:ring-1 focus:ring-maroon-700
+           placeholder:text-silver-700
+           transition-colors duration-200;
+  }
+
+  /* ── Section headings ── */
+  .section-title {
+    @apply font-display text-4xl md:text-5xl text-silver-100
+           tracking-wide;
+  }
+
+  .section-subtitle {
+    @apply font-accent text-xs tracking-[0.3em] uppercase
+           text-gold-500;
+  }
+
+  /* ── Gold divider ── */
+  .gold-divider {
+    @apply w-16 h-px bg-gold-500 my-4;
+  }
+
+  /* ── Luxury tag/badge ── */
+  .category-badge {
+    @apply font-accent text-[10px] tracking-[0.2em] uppercase
+           px-3 py-1 border;
+  }
+
+  .category-badge-homme {
+    @apply category-badge border-maroon-700 text-maroon-400 bg-maroon-950/40;
+  }
+
+  .category-badge-femme {
+    @apply category-badge border-pink-900 text-pink-400 bg-pink-950/30;
+  }
+
+  .category-badge-unisex {
+    @apply category-badge border-silver-700 text-silver-400 bg-silver-900/20;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #D4AF37, #F0D060, #D4AF37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-silver {
+    background: linear-gradient(135deg, #E8E8E8, #C0C0C0, #A8A8A8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+}
