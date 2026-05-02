@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import products from '../data/products'
 import useCartStore from '../store/cartStore'
 import useWishlistStore from '../store/wishlistStore'
 
 export default function ProductDetailPage() {
   const { id }    = useParams()
+  const navigate  = useNavigate()
   const product   = products.find((p) => p.id === parseInt(id))
 
   const [selectedSize, setSelectedSize] = useState('55ml')
@@ -38,6 +39,12 @@ export default function ProductDetailPage() {
     setAdded(true)
     setTimeout(() => setAdded(false), 2000)
     openCart()
+  }
+
+  const handleBuyNow = () => {
+    // Add to cart first, then navigate to checkout
+    for (let i = 0; i < qty; i++) addItem(product, selectedSize)
+    navigate('/checkout')
   }
 
   const savings = onSale ? originalPrice - price : 0
@@ -219,9 +226,12 @@ export default function ProductDetailPage() {
               >
                 {added ? '✓ Added to Cart' : 'Add to Cart'}
               </button>
-              <Link to="/checkout" className="flex-1 py-4 btn-secondary text-center text-xs">
+              <button
+                onClick={handleBuyNow}
+                className="flex-1 py-4 btn-secondary text-xs"
+              >
                 Buy Now
-              </Link>
+              </button>
             </div>
 
             <p className="font-body text-xs text-silver-700 text-center tracking-wide mb-8">

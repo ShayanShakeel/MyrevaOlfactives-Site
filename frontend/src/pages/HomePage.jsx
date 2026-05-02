@@ -5,10 +5,16 @@ import useCartStore from '../store/cartStore'
 import useWishlistStore from '../store/wishlistStore'
 
 // ─── Intersection Observer hook for scroll reveals ───────────────
-function useReveal() {
+// aboveTheFold: if true, starts visible immediately (for hero section)
+function useReveal(aboveTheFold = false) {
   const ref = useRef(null)
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(aboveTheFold)
   useEffect(() => {
+    if (aboveTheFold) {
+      // Small delay so CSS transitions actually play on load
+      const t = setTimeout(() => setVisible(true), 80)
+      return () => clearTimeout(t)
+    }
     const el = ref.current
     if (!el) return
     const obs = new IntersectionObserver(
@@ -17,7 +23,7 @@ function useReveal() {
     )
     obs.observe(el)
     return () => obs.disconnect()
-  }, [])
+  }, [aboveTheFold])
   return [ref, visible]
 }
 
@@ -40,7 +46,7 @@ export default function HomePage() {
   const toggleItem   = useWishlistStore((s) => s.toggleItem)
   const isWishlisted = useWishlistStore((s) => s.isWishlisted)
 
-  const [heroRef,     heroVisible]     = useReveal()
+  const [heroRef,     heroVisible]     = useReveal(true)   // above fold — starts visible
   const [featuredRef, featuredVisible] = useReveal()
   const [catRef,      catVisible]      = useReveal()
   const [storyRef,    storyVisible]    = useReveal()
